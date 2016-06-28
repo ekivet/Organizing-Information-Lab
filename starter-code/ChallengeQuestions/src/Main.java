@@ -2,12 +2,30 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Add code here to test your solutions
+        int[] testArray = new int[3];
+        testArray[0] = 100;
+        testArray[1] = 200;
+        testArray[2] = 300;
+
+        int[] problemOne=findLargestAndSmallest(testArray);
+        System.out.println(problemOne);
+
+        List<Integer> testList = new ArrayList<>();
+        testList.add(3);
+        testList.add(7);
+        testList.add(9);
+        testList.add(17);
+
+        int problemTwo = sumOfTwoLargest(testList);
+        System.out.println(problemTwo);
+
+        int problemThree = removeDuplicatesFromList(testList);
+        System.out.println(problemThree);
     }
 
     /**
      * Question 1: Find the smallest and largest numbers in an array
-     *
+     * <p>
      * You are given an array of integers, with at least two values.
      * Find the smallest and largest numbers in the array, and pass them back in an array containing two values,
      * the smallest and the largest.
@@ -15,9 +33,20 @@ public class Main {
      * @param array An array of integers with at least two values
      * @return An array of integers with two elements, the largest and smallest from the method parameter
      */
-    public static int[] findLargestAndSmallest(int array[]){
+    public static int[] findLargestAndSmallest(int array[]) {
 
+        int[] largestSmallest = new int[2];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < largestSmallest[0]) {
+                array[i] = largestSmallest[0];
+                continue;
+            } else if (array[i] > largestSmallest[1]) {
+                array[i] = largestSmallest[1];
+            }
+        }
+        return largestSmallest;
     }
+
 
 
     /**
@@ -32,6 +61,15 @@ public class Main {
      * @return Sum of the two largest values
      */
     public static int sumOfTwoLargest(List intList){
+        int size = intList.size();
+        if (intList.size() == 0){
+            return 0;
+        }
+        else if (intList.size() == 1){
+            return (int)intList.get(1);
+        }
+        Collections.sort(intList);
+        return (int)intList.get(size-1) + (int)intList.get(size-2);
        
     }
 
@@ -51,7 +89,14 @@ public class Main {
      * @return A List of Integers that doesn't contain duplicates.
      */
     public static List removeDuplicatesFromList(List intList){
-
+        List<Integer> newList = null;
+        Collections.sort(intList);
+        for(int i = 1; i < intList.size()-1 ; i++){
+            if ((int)intList.get(i) != (int)intList.get(i+1)){
+                newList.add((int)intList.get(i));
+            }
+        }
+        return newList;
     }
 
 
